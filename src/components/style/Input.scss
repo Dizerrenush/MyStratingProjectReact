@@ -1,0 +1,43 @@
+
+@import "../../assets/sass/components/variables/colors";
+
+.input-control {
+  display: block;
+  padding: 0.75rem 1rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #181c32;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid $gray-300;
+  border-radius: 0.475rem;
+  box-shadow: none;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+  &-solid {
+    background-color: #f5f8fa;
+    border-color: #f5f8fa;
+    color: #5e6278;
+    transition: color 0.2s ease, background-color 0.2s ease;
+  }
+
+  &:active,
+  &.active,
+  &:focus,
+  &.focus {
+    border: 1px solid $gray-300;
+  }
+
+  &:focus-visible,
+  &.focus-visible {
+    outline: 0;
+  }
+}
+
+.input-label {
+  margin-bottom: 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #3f4254;
+}
