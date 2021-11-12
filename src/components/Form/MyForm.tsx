@@ -5,9 +5,9 @@ import {IForm} from "./types/types";
 import {Textarea} from "../utils/Textarea/Textarea";
 import {Input} from "../utils/Input/Input";
 import {INPUT_TYPE} from "./types/const";
+import './Form.scss'
 
-
-export function Form(props: IForm.IData) {
+export function MyForm(props: IForm.IData) {
 
     const inputs = props.inputs;
     const updateData = (name:string,value:string)=>{

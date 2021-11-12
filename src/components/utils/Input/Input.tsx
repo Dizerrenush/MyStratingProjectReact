@@ -2,6 +2,8 @@
 import React from 'react';
 import {IInputs} from "../types/types";
 
+import '../../style/Input'
+
 export function Input(props: IInputs.IComponentTextarea) {
 
     const {

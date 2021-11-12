@@ -1,8 +1,10 @@
+
 import React from "react";
 
-import {Form} from "../components/Form/Form"
 import {IForm} from "../components/Form/types/types";
 import {INPUT_TYPE} from "../components/Form/types/const";
+import {MyForm} from "../components/Form/MyForm"
+
 
 export function FeedbackSend() {
 
@@ -39,7 +41,7 @@ export function FeedbackSend() {
                 value: "",
                 label: "Description",
                 options: {
-                    className: "input-control-solid y-resize",
+                    className: "input-control-solid max-h-200 min-h-80 y-resize",
                 },
             },
             type: INPUT_TYPE.TEXTAREA,
@@ -52,7 +54,7 @@ export function FeedbackSend() {
                     <h1>Send your feedback</h1>
                 </div>
                 <div className="card__body">
-                    <Form
+                    <MyForm
                         inputs={inputs}
                         url={url}
                         button_text={button_text}
