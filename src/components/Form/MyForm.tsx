@@ -10,15 +10,11 @@ import './Form.scss'
 export function MyForm(props: IForm.IData) {
 
     const inputs = props.inputs;
-    const updateData = (name:string,value:string)=>{
-
-    }
 
     const sendForm = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        //TODO гет поля формы
-        console.log(e)
-        //fetch(props.url, e.target.value)
+        //TODO гет поля формы useSTate
+        //fetch(props.url, data).then()
     }
 
     return (
@@ -31,7 +27,6 @@ export function MyForm(props: IForm.IData) {
                         options,
                         name,
                         value,
-                        onChange
                     },
                 } = inputData;
                 switch (type){
@@ -43,7 +38,6 @@ export function MyForm(props: IForm.IData) {
                                 value={value}
                                 options={options}
                                 key={name}
-                                onChange={updateData}
                             />
                         );
                     }
@@ -55,7 +49,6 @@ export function MyForm(props: IForm.IData) {
                                 value={value}
                                 options={options}
                                 key={name}
-                                onChange={updateData}
                             />
                         );
                     }

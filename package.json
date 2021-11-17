@@ -5,9 +5,9 @@
   "author": "DiZeRRenush",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server",
-    "build": "cross-env NODE_ENV=production webpack",
-    "start": "serve dist"
+    "start": "webpack-dev-server",
+    "build": "webpack",
+    "start-prod": "serve dist"
   },
   "repository": {
     "type": "git",
@@ -26,10 +26,13 @@
     "@types/node": "^12.20.37",
     "@types/react": "^17.0.34",
     "@types/react-dom": "^17.0.11",
+    "@types/webpack": "^5.28.0",
+    "@types/websocket": "^1.0.4",
+    "@types/ws": "^8.2.0",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
     "babel-loader": "^8.2.3",
-    "cross-env": "^7.0.3",
+    "buffer": "^6.0.3",
     "css-loader": "^6.5.0",
     "dotenv": "^10.0.0",
     "eslint": "^6.7.2",
@@ -37,10 +40,12 @@
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.4.3",
+    "process": "^0.11.10",
     "react-router-dom": "^6.0.2",
     "sass": "1.32.1",
     "sass-loader": "^8.0.2",
     "serve": "^13.0.2",
+    "stream-browserify": "^3.0.0",
     "style-loader": "^3.3.1",
     "terser-webpack-plugin": "^5.2.4",
     "ts-loader": "^9.2.6",
@@ -53,6 +58,8 @@
   },
   "dependencies": {
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "websocket": "^1.0.34",
+    "ws": "^8.2.3"
   }
 }

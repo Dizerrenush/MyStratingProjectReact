@@ -8,8 +8,8 @@ import {MyForm} from "../components/Form/MyForm"
 
 export function FeedbackSend() {
 
-    let button_text: string = 'Send Feedback';
-    let url: string = 'localhost:8081';
+    const button_text = 'Send Feedback';
+    const url = 'http://localhost:8082/api/v1/feedback/create_with_user';
     const inputs: Array<IForm.IInput> = [
         {
             data: {

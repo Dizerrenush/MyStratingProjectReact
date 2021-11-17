@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-
+import "./webSocketConnect";
 import "./assets/sass/style";
 
 const App: React.FC = (props) => {

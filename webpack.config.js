@@ -1,3 +1,5 @@
+
+const webpack = require('webpack');
 const {resolve} = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -17,8 +19,29 @@ const config = {
     resolve: {
         alias: {
             "@": resolve("src"),
+            "buffer": "buffer",
+            "stream": "stream-browserify"
         },
         extensions: [".scss", ".ts", ".tsx", ".js", ".jsx", ".json"],
+        fallback: {
+            "buffer": require.resolve("buffer/"),
+            "fs": false,
+            "os": false,
+            "net":false,
+            "tls":false,
+            "util": false,
+            "http": false,
+            "https": false,
+            "path": false,
+            "assert": false,
+            "crypto": false,
+            "stream": require.resolve("stream-browserify"),
+            "zlib": false,
+            "url": false,
+            "querystring":false,
+            "utf-8-validate":false,
+            "bufferutil":false
+        },
     },
     module: {
         rules: [
@@ -64,6 +87,12 @@ const config = {
             chunkFilename: "css/[name].[id].css",
             ignoreOrder: false,
         }),
+        new webpack.ProvidePlugin({
+            Buffer: ['buffer', 'Buffer'],
+        }),
+        new webpack.ProvidePlugin({
+            process: 'process/browser',
+        }),
     ],
 };
 
@@ -91,7 +120,7 @@ if (isProd) {
     config.devtool = "source-map";
 } else {
     config.devServer = {
-        port: 9000,
+        port: 8080,
         open: true,
         hot: true,
         compress: true,

@@ -30,7 +30,7 @@ export function Textarea(props: IInputs.IComponentTextarea) {
             <textarea
                 className={inputClassName}
                 name={name}
-                value={value}
+                defaultValue={value}
                 required={required}
             />
         </div>
