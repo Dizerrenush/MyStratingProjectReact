@@ -1,30 +1,18 @@
 
 import {w3cwebsocket} from "websocket";
 
-const WSSERVER = process.env.WEBSOCKET_SERVER || 'ws://localhost:3000';
+export function webSocketConnect(address: string): Promise<w3cwebsocket>{
 
-export const wsConnection = new w3cwebsocket(WSSERVER);
+    return new Promise(function(resolve, reject) {
+        const wsConnection = new w3cwebsocket(address);
+        wsConnection.onopen = function() {
+            resolve(wsConnection);
+        };
+        wsConnection.onerror = function(err) {
+            reject(err);
+        };
 
-//TODO init return promise<wsConnection>
+    });
+}
 
-wsConnection.onopen = function () {
-    wsConnection.onmessage = (message) => {
-        //Emit eventEmitter
-        //TODO redux dispatch
-        console.log(message)
-    }
-};
-
-wsConnection.onclose = function (event) {
-    if (event.wasClean) {
-        console.log('Connection closed');
-    } else {
-        console.log('Connection refused');
-    }
-    console.log('Code: ' + event.code + ' reason: ' + event.reason);
-};
-
-wsConnection.onerror = function (error) {
-    console.log("Error " + error.message);
-};
 

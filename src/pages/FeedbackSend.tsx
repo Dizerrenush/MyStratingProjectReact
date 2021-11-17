@@ -5,8 +5,7 @@ import {IForm} from "../components/Form/types/types";
 import {INPUT_TYPE} from "../components/Form/types/const";
 import {MyForm} from "../components/Form/MyForm"
 
-
-export function FeedbackSend() {
+export const FeedbackSend: React.FC = () => {
 
     const button_text = 'Send Feedback';
     const url = 'http://localhost:8082/api/v1/feedback/create_with_user';

@@ -3,7 +3,6 @@ export namespace IFeedbacks {
     feedbacks: Array<IListItem>;
   }
   interface IListItem {
-    id: number;
     client: IClient;
     description: string;
   }
