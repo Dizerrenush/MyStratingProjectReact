@@ -11,10 +11,13 @@
   border: 0;
 
   &__header {
-    min-height: $card-header-height;
     padding: 0 $card-px;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    flex-wrap: wrap;
+    background-color: transparent;
   }
-
   &__body {
     padding: $card-py $card-px;
   }
@@ -27,13 +30,6 @@
 }
 
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: stretch;
-  flex-wrap: wrap;
-  background-color: transparent;
-  padding: 0;
-
   &__title {
     display: flex;
     align-items: center;

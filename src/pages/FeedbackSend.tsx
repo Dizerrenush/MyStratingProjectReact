@@ -4,6 +4,7 @@ import React from "react";
 import {IForm} from "../components/Form/types/types";
 import {INPUT_TYPE} from "../components/Form/types/const";
 import {MyForm} from "../components/Form/MyForm"
+import {Link} from "react-router-dom";
 
 export const FeedbackSend: React.FC = () => {
 
@@ -47,17 +48,24 @@ export const FeedbackSend: React.FC = () => {
         },
     ];
     return (
-        <div className="d-flex flex-center flex-column">
-            <div className="card mx-auto p-10 rounded shadow-sm wd-500">
-                <div className="text-center">
-                    <h1>Send your feedback</h1>
-                </div>
-                <div className="card__body">
-                    <MyForm
-                        inputs={inputs}
-                        url={url}
-                        button_text={button_text}
-                    />
+        <div>
+            <div className="main-nav">
+                <Link to="/feedback_list">FeedbackList</Link> |{" "}
+                <Link to="/feedback_send">FeedbackSend</Link>
+            </div>
+
+            <div className="d-flex flex-center flex-column">
+                <div className="card mx-auto p-10 rounded shadow-sm wd-500">
+                    <div className="text-center">
+                        <h1>Send your feedback</h1>
+                    </div>
+                    <div className="card__body">
+                        <MyForm
+                            inputs={inputs}
+                            url={url}
+                            button_text={button_text}
+                        />
+                    </div>
                 </div>
             </div>
         </div>

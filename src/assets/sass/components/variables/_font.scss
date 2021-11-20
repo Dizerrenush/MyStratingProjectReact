@@ -1,0 +1,18 @@
+
+$root-font-size: 13px; // Root font size for desktop mode
+$root-font-size-m: 12px; // Root font size for mobile mode
+// Font family
+$font-family-sans-serif: Poppins, Helvetica, 'sans-serif' !default;
+
+$font-size-base: 1rem !default; // Assumes the browser default, typically `13px`
+$font-size-lg: $font-size-base * 1.075 !default; // 14.04px
+$font-size-sm: $font-size-base * 0.925 !default; // 12.025px
+
+$font-weight-lighter: lighter !default;
+$font-weight-light: 300 !default;
+$font-weight-normal: 400 !default;
+$font-weight-bold: 500 !default;
+$font-weight-bolder: 600 !default;
+$font-weight-boldest: 700 !default;
+
+$font-weight-base: $font-weight-normal !default;

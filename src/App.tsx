@@ -1,15 +1,8 @@
 
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { Provider, useSelector, useDispatch } from 'react-redux'
 import {webSocketConnect} from"./webSocketConnect";
 import "./assets/sass/style";
-
-const WSSERVER = process.env.WEBSOCKET_SERVER || 'ws://localhost:3000';
-
-const wsConnect =  webSocketConnect(WSSERVER);
-
-//TODO redux dispatch
 
 const App: React.FC = () => {
     return (

@@ -1,49 +1,64 @@
 
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {IFeedbacks} from "./types/types";
+import {Link} from "react-router-dom";
+import {webSocketConnect} from "../webSocketConnect";
 
-export const FeedbackList: React.FC = () => {
+const WSSERVER = process.env.WEBSOCKET_SERVER || 'ws://localhost:3000';
 
-    //TODO empty item
-    let feedbacks: Array<IFeedbacks.IListItem> = [];
+export function FeedbackList() {
 
-    fetch('http://localhost:8082/api/v1/feedback/read').then(response => {
-        console.log(response.body)
-        //feedbacks = response.body
-    })
+    const [data, setData] = useState<Array<IFeedbacks.IListItem>>([]);
 
-    console.log(feedbacks)
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const url = 'http://localhost:8082/api/v1/feedback/get?limit=0'
+    useEffect(() => {
+        fetch(url)
+            .then(res => res.json())
+            .then(setData)
+    }, []);
+    useEffect(() => {
+        webSocketConnect(WSSERVER).then(
+            (wsConnect)=>{
+                wsConnect.onmessage = (message) => {
+                    if (message.data instanceof Blob){
+                        const reader = new FileReader();
 
+                        reader.onload = () => {
+                            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                            // @ts-ignore
+                            const result = JSON.parse(reader.result)
+                            data.push(result.payload);
+                            console.log(data)
+                        };
+
+                        reader.readAsText(message.data);
+                    }else {
+                        console.log("Result: " + message.data);
+                    }
+                };
+            }
+        );
+    });
     return (
-        <div className="feedback-list">
-            <ul>
-                {feedbacks.map(feedbackData => {
-                    const {
-                        client: {
-                            fullname,
-                            email,
-                        },
-                        description
-                    } = feedbackData;
-                    return (
-                        <li>
-                            <div className="feedback-item">
-                                <div className="feedback-item_header">
-                                    <div className="feedback-item_fullname">
-                                        {fullname}
-                                    </div>
-                                    <div className="feedback-item_email">
-                                        {email}
-                                    </div>
-                                </div>
-                                <div className="feedback-item_body">
-                                    {description}
-                                </div>
-                            </div>
-                        </li>
-                    );
+        <div>
+            <div className="main-nav">
+                <Link to="/feedback_list">FeedbackList</Link> |{" "}
+                <Link to="/feedback_send">FeedbackSend</Link>
+            </div>
 
-                })}
+            <ul className="list bg-light-gray no-dot">
+                {data.map(item => (
+                    <li key={item.id} className="list-item d-flex flex-column bg-white p-10">
+                        <div className="title text-dark fw-bold">
+                            Client: {item.creator.fullname}
+                        </div>
+                        <div className="body">
+                            Feedback: {item.description}
+                        </div>
+                    </li>
+                ))}
             </ul>
         </div>
     )

@@ -1,10 +1,9 @@
 export namespace IFeedbacks {
-  export interface IList {
-    feedbacks: Array<IListItem>;
-  }
+
   interface IListItem {
-    client: IClient;
+    id: number;
     description: string;
+    creator: IClient;
   }
   interface IClient {
     fullname: string;
