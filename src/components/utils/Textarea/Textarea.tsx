@@ -14,6 +14,7 @@ export function Textarea(props: IInputs.IComponentTextarea) {
             className = '',
             required = false
         } = {},
+        onChange,
     } = props;
 
     let inputClassName = 'input-control ';
@@ -21,7 +22,10 @@ export function Textarea(props: IInputs.IComponentTextarea) {
     if (className) {
         inputClassName += className;
     }
-
+    const handleChange = (e:any) => {
+        // @ts-ignore
+        onChange([e.target.name],e.target.value.trim());
+    };
     return (
         <div className="mb-10 d-flex flex-column">
             <label htmlFor="title" className="active">
@@ -32,6 +36,7 @@ export function Textarea(props: IInputs.IComponentTextarea) {
                 name={name}
                 defaultValue={value}
                 required={required}
+                onChange={handleChange}
             />
         </div>
 

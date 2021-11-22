@@ -6,15 +6,27 @@ import {Textarea} from "../utils/Textarea/Textarea";
 import {Input} from "../utils/Input/Input";
 import {INPUT_TYPE} from "./types/const";
 import './Form.scss'
+import {postData} from "../../utils/utils";
 
 export function MyForm(props: IForm.IData) {
 
     const inputs = props.inputs;
+    const initialFormData = inputs.reduce(
+        (obj, item) =>
+            Object.assign(obj, {[item.data.name]: item.data.value})
+        ,{});
+    const [formData, updateFormData] = React.useState(initialFormData);
+    const handleChange = (name:string,value: string | number) => {
+        updateFormData({
+            ...formData,
+            [name]: value
+        });
+    };
 
     const sendForm = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        //TODO гет поля формы useSTate
-        //fetch(props.url, data).then()
+
+        postData(props.url, formData).then()
     }
 
     return (
@@ -38,6 +50,7 @@ export function MyForm(props: IForm.IData) {
                                 value={value}
                                 options={options}
                                 key={name}
+                                onChange={handleChange}
                             />
                         );
                     }
@@ -49,6 +62,7 @@ export function MyForm(props: IForm.IData) {
                                 value={value}
                                 options={options}
                                 key={name}
+                                onChange={handleChange}
                             />
                         );
                     }

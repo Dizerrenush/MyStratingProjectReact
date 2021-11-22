@@ -9,20 +9,8 @@ import {Link} from "react-router-dom";
 export const FeedbackSend: React.FC = () => {
 
     const button_text = 'Send Feedback';
-    const url = 'http://localhost:8082/api/v1/feedback/create_with_user';
+    const url = 'http://localhost:8082/api/v1/feedback/create';
     const inputs: Array<IForm.IInput> = [
-        {
-            data: {
-                name: "fullname",
-                value: "",
-                label: "Full name",
-                options: {
-                    required: true,
-                    className: "input-control-solid",
-                },
-            },
-            type: INPUT_TYPE.TEXT,
-        },
         {
             data: {
                 name: "email",
@@ -31,6 +19,17 @@ export const FeedbackSend: React.FC = () => {
                 options: {
                     className: "input-control-solid",
                     required: true,
+                },
+            },
+            type: INPUT_TYPE.TEXT,
+        },
+        {
+            data: {
+                name: "fullname",
+                value: "",
+                label: "Full name",
+                options: {
+                    className: "input-control-solid",
                 },
             },
             type: INPUT_TYPE.TEXT,

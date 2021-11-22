@@ -8,11 +8,12 @@ export namespace IInputs {
   interface IComponent extends IDefault{
     label?: string;
     options?: IOptions;
+    onChange?(name: string,value: string | number): void;
   }
+
   export interface IDefault {
     name: string;
     value: string;
-    onChange?(name: string, value: string): void
   }
   export interface IOptions {
     className?: string;

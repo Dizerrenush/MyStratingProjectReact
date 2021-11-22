@@ -1,12 +1,12 @@
 export namespace IFeedbacks {
 
-  interface IListItem {
+  interface IListItem extends IClient{
     id: number;
     description: string;
-    creator: IClient;
   }
+
   interface IClient {
-    fullname: string;
-    email: string;
+    fullname?: string;
+    email?: string;
   }
 }
