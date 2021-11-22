@@ -1,21 +1,18 @@
 
-import React, {useState, useEffect} from "react";
-import {IFeedbacks} from "./types/types";
-import {Link} from "react-router-dom";
-import store from "../redux/store";
+import React from "react";
 import {connect} from "react-redux";
+import {IState} from "../redux/types/types";
 
-function FeedbackList() {
+const mapStateToProps = (state: IState) => ({
+    feedbackList: state.feedbackList,
+});
+
+const FeedbackList = ({feedbackList}: IState): JSX.Element => {
 
     return (
         <div>
-            <div className="main-nav">
-                <Link to="/feedback_list">FeedbackList</Link> |{" "}
-                <Link to="/feedback_send">FeedbackSend</Link>
-            </div>
-
             <ul className="list bg-light-gray no-dot">
-                {data.map(item => (
+                {feedbackList.map(item => (
                     <li key={item.id} className="list-item d-flex flex-column bg-white p-10">
                         <div className="title text-dark fw-bold">
                             Client: {item.fullname}
@@ -31,5 +28,5 @@ function FeedbackList() {
 
 }
 
-export default connect()(FeedbackList)
+export default connect(mapStateToProps)(FeedbackList)
 

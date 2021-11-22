@@ -1,19 +1,18 @@
 
-import {WS_EVENT_ID} from "./types/const";
+import {ACTION_ID} from "./types/const";
+import {IActions} from "./types/types";
+import {IFeedbacks} from "../pages/types/types";
 
-interface IEvent {
-    type: WS_EVENT_ID;
-    data: any;
+export function createEventAction(event: IActions.EventCreateFeedbackData): IActions.EventCreateFeedback {
+    return {
+        type: ACTION_ID.HANDLE_EVENT,
+        data: event,
+    };
 }
 
-export function createEventAction(event: IEvent) {
-
-    const {
-        type,
-        data,
-    }=event
+export function setFeedbackList(event: Array<IFeedbacks.IListItem>): IActions.SetFeedback {
     return {
-        type:type,
-        payload:data,
-    }
+        type: ACTION_ID.SET_FEEDBACKS,
+        data: event,
+    };
 }

@@ -1,63 +1,68 @@
 
-import React from "react";
-import { Link } from "react-router-dom";
-import {connect, useDispatch} from 'react-redux'
+import React, {useEffect} from "react";
+import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
+import {connect} from 'react-redux'
 import store from './redux/store'
 import "./assets/sass/style";
-import {webSocketConnect} from "./webSocketConnect";
-import {createEventAction} from "./redux/actions";
-import {IMessageEvent} from "websocket";
+import init from "./webSocket/init";
+import {createEventAction, setFeedbackList} from "./redux/actions";
+import {IActions} from "./redux/types/types";
+import {IFeedbacks} from "./pages/types/types";
+import FeedbackList from "./pages/FeedbackList";
+import FeedbackSend from "./pages/FeedbackSend";
 
-const WSSERVER = process.env.WEBSOCKET_SERVER || 'ws://localhost:3000';
-const dispatch = useDispatch();
+const WS_SERVER = process.env.WEBSOCKET_SERVER || 'ws://localhost:3000';
+const url = 'http://localhost:8082/api/v1/feedback/get';
 
 const App: React.FC = () => {
-//const [data, setData] = useState<Array<IFeedbacks.IListItem>>([]);
 
-    const url = 'http://localhost:8082/api/v1/feedback/get';
-
+    useEffect(() => {
         fetch(url)
             .then(res => res.json())
-            .then(data=>dispatch(data))
+            .then(payload => setFeedbacks(payload))
+    }, []);
 
-    webSocketConnect(WSSERVER).then(
-        (wsConnect)=>{
+    init(WS_SERVER).then(
+        (wsConnect) => {
             wsConnect.onmessage = (message) => {
                 const data = message.data
 
-                if (data instanceof Blob){
+                if (data instanceof Blob) {
                     const reader = new FileReader();
-
+                    reader.readAsText(data);
                     reader.onload = () => {
-                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                        // @ts-ignore
-                        const result = JSON.parse(reader.result);
+                        const result = JSON.parse(reader.result as string || '{}');
+
                         handleEvent(result);
                     };
 
-                    reader.readAsText(data);
+                } else {
+                    handleEvent(JSON.parse(data as string));
                 }
-                else {
 
-                    //handleEvent(data)
-                }
-                
             };
         }
     );
 
     return (
-        <div>
-            <div className="main-nav">
-                <Link to="/feedback_list">FeedbackList</Link> |{" "}
+        <div className="main-nav">
+            <BrowserRouter>
+                <Link to="/">FeedbackList</Link> |{" "}
                 <Link to="/feedback_send">FeedbackSend</Link>
-            </div>
+                <Routes>
+                    <Route path="/" element={<FeedbackList/>}/>
+                    <Route path="feedback_send" element={<FeedbackSend/>}/>
+                </Routes>
+            </BrowserRouter>
         </div>
     );
 };
 
-const handleEvent = (event: IMessageEvent) => {
+const handleEvent = (event: IActions.EventCreateFeedbackData) => {
     store.dispatch(createEventAction(event))
-}
+};
+const setFeedbacks = (event: Array<IFeedbacks.IListItem>) => {
+    store.dispatch(setFeedbackList(event))
+};
 
 export default connect()(App);

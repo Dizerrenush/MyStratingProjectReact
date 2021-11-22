@@ -1,32 +1,41 @@
 
 import React from "react";
-
 import {IForm} from "./types/types";
-import {Textarea} from "../utils/Textarea/Textarea";
-import {Input} from "../utils/Input/Input";
+import Textarea from "../utils/Textarea/Textarea";
+import Input from "../utils/Input/Input";
 import {INPUT_TYPE} from "./types/const";
 import './Form.scss'
 import {postData} from "../../utils/utils";
 
-export function MyForm(props: IForm.IData) {
+type TInitialFormData = Record<string, string | number>;
 
+const MyForm = (props: IForm.IData): JSX.Element => {
     const inputs = props.inputs;
-    const initialFormData = inputs.reduce(
-        (obj, item) =>
-            Object.assign(obj, {[item.data.name]: item.data.value})
-        ,{});
-    const [formData, updateFormData] = React.useState(initialFormData);
-    const handleChange = (name:string,value: string | number) => {
+    const initialFormData = inputs.reduce((obj, item) => {
+        const {
+            data: {
+                name,
+                value,
+            },
+        } = item;
+
+        obj[name] = value;
+
+        return obj;
+    }, {} as TInitialFormData);
+    const [formData, updateFormData] = React.useState<TInitialFormData>(initialFormData);
+    const handleChange = (name: string, value: string | number) => {
         updateFormData({
             ...formData,
-            [name]: value
+            [name]: value,
         });
     };
 
     const sendForm = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        postData(props.url, formData).then()
+        //TODO Abort signal
+        postData(props.url, formData).catch();
     }
 
     return (
@@ -34,16 +43,16 @@ export function MyForm(props: IForm.IData) {
             {inputs.map(inputData => {
                 const {
                     type,
-                    data:{
+                    data: {
                         label,
                         options,
                         name,
                         value,
                     },
                 } = inputData;
-                switch (type){
-                    case INPUT_TYPE.TEXT:{
-                        return(
+                switch (type) {
+                    case INPUT_TYPE.TEXT: {
+                        return (
                             <Input
                                 label={label}
                                 name={name}
@@ -54,8 +63,8 @@ export function MyForm(props: IForm.IData) {
                             />
                         );
                     }
-                    case INPUT_TYPE.TEXTAREA:{
-                        return(
+                    case INPUT_TYPE.TEXTAREA: {
+                        return (
                             <Textarea
                                 label={label}
                                 name={name}
@@ -75,3 +84,5 @@ export function MyForm(props: IForm.IData) {
     );
 
 }
+
+export default MyForm;

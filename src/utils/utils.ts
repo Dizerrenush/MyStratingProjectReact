@@ -1,13 +1,14 @@
 
-export async function postData(url = '', data = {}) {
-
+export async function postData(url = '', data = {}, options: {signal?: AbortSignal} = {}): Promise<Response> {
     const response = await fetch(url, {
         method: 'POST',
         mode: 'cors',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
+        ...options
     });
+
     return response.json();
 }

@@ -3,10 +3,9 @@ import React from "react";
 
 import {IForm} from "../components/Form/types/types";
 import {INPUT_TYPE} from "../components/Form/types/const";
-import {MyForm} from "../components/Form/MyForm"
-import {Link} from "react-router-dom";
+import MyForm from "../components/Form/MyForm";
 
-export const FeedbackSend: React.FC = () => {
+const FeedbackSend = (): JSX.Element => {
 
     const button_text = 'Send Feedback';
     const url = 'http://localhost:8082/api/v1/feedback/create';
@@ -18,7 +17,6 @@ export const FeedbackSend: React.FC = () => {
                 label: "Email",
                 options: {
                     className: "input-control-solid",
-                    required: true,
                 },
             },
             type: INPUT_TYPE.TEXT,
@@ -48,11 +46,6 @@ export const FeedbackSend: React.FC = () => {
     ];
     return (
         <div>
-            <div className="main-nav">
-                <Link to="/feedback_list">FeedbackList</Link> |{" "}
-                <Link to="/feedback_send">FeedbackSend</Link>
-            </div>
-
             <div className="d-flex flex-center flex-column">
                 <div className="card mx-auto p-10 rounded shadow-sm wd-500">
                     <div className="text-center">
@@ -71,4 +64,6 @@ export const FeedbackSend: React.FC = () => {
     )
 
 }
+
+export default FeedbackSend;
 

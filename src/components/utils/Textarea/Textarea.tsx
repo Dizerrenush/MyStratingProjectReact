@@ -4,7 +4,7 @@ import {IInputs} from "../types/types";
 
 import '../../style/Input'
 
-export function Textarea(props: IInputs.IComponentTextarea) {
+const Textarea = (props: IInputs.IComponentTextarea): JSX.Element => {
 
     const {
         name,
@@ -22,10 +22,18 @@ export function Textarea(props: IInputs.IComponentTextarea) {
     if (className) {
         inputClassName += className;
     }
-    const handleChange = (e:any) => {
-        // @ts-ignore
-        onChange([e.target.name],e.target.value.trim());
+
+    const handleChange = (e:  React.ChangeEvent<HTMLTextAreaElement>) => {
+        if(onChange){
+            const{
+                name,
+                value
+            }=e.target;
+            onChange(name, value.trim());
+        }
+
     };
+
     return (
         <div className="mb-10 d-flex flex-column">
             <label htmlFor="title" className="active">
@@ -43,3 +51,5 @@ export function Textarea(props: IInputs.IComponentTextarea) {
     );
 
 }
+
+export default Textarea;

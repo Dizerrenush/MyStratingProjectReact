@@ -1,11 +1,12 @@
 
-export const enum ACTION_ID{
+export const enum ACTION_ID {
     NONE,
-    HANDLE_EVENT
+    HANDLE_EVENT,
+    SET_FEEDBACKS
 }
 
 //copy from backend should use file from backend //TODo путь
-export const enum WS_EVENT_ID{
+export const enum WS_EVENT_ID {
     NONE,
     CLIENT_CREATED,
     CLIENT_UPDATED,
