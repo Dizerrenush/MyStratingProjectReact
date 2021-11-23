@@ -1,5 +1,5 @@
 
-export async function postData(url = '', data = {}, options: {signal?: AbortSignal} = {}): Promise<Response> {
+export async function postData(url = '', data = {}, options: {signal?: AbortSignal,timeout?: number} = {}): Promise<Response> {
     const response = await fetch(url, {
         method: 'POST',
         mode: 'cors',

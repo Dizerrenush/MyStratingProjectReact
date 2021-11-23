@@ -14,12 +14,29 @@ import FeedbackSend from "./pages/FeedbackSend";
 const WS_SERVER = process.env.WEBSOCKET_SERVER || 'ws://localhost:3000';
 const url = 'http://localhost:8082/api/v1/feedback/get';
 
-const App: React.FC = () => {
+const App = (): JSX.Element => {
 
     useEffect(() => {
-        fetch(url)
-            .then(res => res.json())
+        const controller = new AbortController();
+        const signal = controller.signal;
+        const fetchTimeout = 60000;
+        const timeoutId = setTimeout(() => {
+            controller.abort();
+
+        }, fetchTimeout);
+
+        fetch(url, {signal})
+            .then(res => {
+                clearTimeout(timeoutId);
+
+                return res.json();
+            })
             .then(payload => setFeedbacks(payload))
+            .catch(() => {
+                clearTimeout(timeoutId);
+
+                console.log('Error during fetch feedbackList: Can`t connect to database');
+            })
     }, []);
 
     init(WS_SERVER).then(

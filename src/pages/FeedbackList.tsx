@@ -15,7 +15,7 @@ const FeedbackList = ({feedbackList}: IState): JSX.Element => {
                 {feedbackList.map(item => (
                     <li key={item.id} className="list-item d-flex flex-column bg-white p-10">
                         <div className="title text-dark fw-bold">
-                            Client: {item.fullname}
+                            Client: {item.fullname ? item.fullname : 'Name not found'}
                         </div>
                         <div className="body">
                             Feedback: {item.description}

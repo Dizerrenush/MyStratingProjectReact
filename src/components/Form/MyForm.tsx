@@ -34,8 +34,23 @@ const MyForm = (props: IForm.IData): JSX.Element => {
     const sendForm = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        //TODO Abort signal
-        postData(props.url, formData).catch();
+        const controller = new AbortController();
+        const signal = controller.signal;
+        const fetchTimeout = 10000;
+        const timeoutId = setTimeout(() => {
+            controller.abort();
+        }, fetchTimeout);
+
+        postData(props.url, formData, {signal: signal})
+            .then(() => {
+                clearTimeout(timeoutId);
+
+            })
+            .catch(() => {
+                clearTimeout(timeoutId);
+
+                console.log('Error during send: Can`t connect to database');
+            });
     }
 
     return (
