@@ -75,7 +75,7 @@ const App = (): JSX.Element => {
     );
 };
 
-const handleEvent = (event: IActions.EventCreateFeedbackData) => {
+const handleEvent = (event: IActions.EventFeedbackData) => {
     store.dispatch(createEventAction(event))
 };
 const setFeedbacks = (event: Array<IFeedbacks.IListItem>) => {

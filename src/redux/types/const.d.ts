@@ -2,7 +2,8 @@
 export const enum ACTION_ID {
     NONE,
     HANDLE_EVENT,
-    SET_FEEDBACKS
+    SET_FEEDBACKS,
+    DELETE_FEEDBACK,
 }
 
 //copy from backend should use file from backend //TODo путь

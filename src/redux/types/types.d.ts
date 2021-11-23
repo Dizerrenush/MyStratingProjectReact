@@ -8,11 +8,11 @@ export interface IState {
 
 export namespace IActions {
 
-    export type TAction = EventCreateFeedback | SetFeedback;
+    export type TAction = EventFeedback | SetFeedback;
 
-    export interface EventCreateFeedback {
+    export interface EventFeedback {
         type: ACTION_ID.HANDLE_EVENT;
-        data: EventCreateFeedbackData;
+        data: EventFeedbackData;
     }
 
     export interface SetFeedback {
@@ -20,7 +20,7 @@ export namespace IActions {
         data: Array<IFeedbacks.IListItem>;
     }
 
-    export interface EventCreateFeedbackData {
+    export interface EventFeedbackData {
         eventId: WS_EVENT_ID;
         payload: IFeedbacks.IListItem;
     }

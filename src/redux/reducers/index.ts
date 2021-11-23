@@ -19,7 +19,7 @@ export const feedbacks: Reducer<IState | undefined, IActions.TAction> = (state, 
             const {
                 eventId,
                 payload,
-            } = data as IActions.EventCreateFeedbackData;
+            } = data as IActions.EventFeedbackData;
 
             switch (eventId) {
                 case WS_EVENT_ID.FEEDBACK_CREATED: {
@@ -32,12 +32,12 @@ export const feedbacks: Reducer<IState | undefined, IActions.TAction> = (state, 
                         feedbackList: state.feedbackList.push(payload),
                     };
                 }
-                TODO
+                */
                 case WS_EVENT_ID.FEEDBACK_DELETED: {
                     return {
-                        feedbackList: state.feedbackList.push(payload),
+                        feedbackList:  state.feedbackList.filter(el => el.id !== payload.id),
                     };
-                }*/
+                }
                 default:
                     return state;
             }

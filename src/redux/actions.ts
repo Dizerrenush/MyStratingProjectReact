@@ -3,7 +3,7 @@ import {ACTION_ID} from "./types/const";
 import {IActions} from "./types/types";
 import {IFeedbacks} from "../pages/types/types";
 
-export function createEventAction(event: IActions.EventCreateFeedbackData): IActions.EventCreateFeedback {
+export function createEventAction(event: IActions.EventFeedbackData): IActions.EventFeedback {
     return {
         type: ACTION_ID.HANDLE_EVENT,
         data: event,
