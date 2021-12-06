@@ -1,15 +1,16 @@
 
 import React from 'react';
-import {IInputs} from "../types/types";
-
+import type {IInputs} from "../types/types";
 import '../../style/Input'
+import {INPUT_TYPE} from "../../Form/types/const";
 
-const Input = (props: IInputs.IComponentInput): JSX.Element => {
+const Input = (props: IInputs.Component): JSX.Element => {
 
     const {
         name,
         value,
         label,
+        type,
         options: {
             className = '',
             required = false
@@ -22,7 +23,7 @@ const Input = (props: IInputs.IComponentInput): JSX.Element => {
     if (className) {
         inputClassName += className;
     }
-    const handleChange = (e:  React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e:  React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
         if(onChange){
             const{
                 name,
@@ -34,16 +35,37 @@ const Input = (props: IInputs.IComponentInput): JSX.Element => {
     };
     return (
         <div className="mb-10 d-flex flex-column">
-            <label htmlFor="title" className="active">
-                {label}
+            <label className="active">
+                <span>{label}</span>
+                {() => {
+                    switch (type) {
+                        case INPUT_TYPE.TEXT: {
+                            return (
+                                <input
+                                    className={inputClassName}
+                                    name={name}
+                                    defaultValue={value}
+                                    required={required}
+                                    onChange={handleChange}
+                                />
+                            );
+                        }
+                        case INPUT_TYPE.TEXTAREA: {
+                            return (
+                                <textarea
+                                    className={inputClassName}
+                                    name={name}
+                                    defaultValue={value}
+                                    required={required}
+                                    onChange={handleChange}
+                                />
+                            );
+                        }
+                    }
+                }
+                }
+
             </label>
-            <input
-                className={inputClassName}
-                name={name}
-                defaultValue={value}
-                required={required}
-                onChange={handleChange}
-            />
         </div>
 
     );

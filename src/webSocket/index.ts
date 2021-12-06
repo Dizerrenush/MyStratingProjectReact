@@ -1,13 +1,11 @@
 import {w3cwebsocket} from "websocket";
-import Timeout = NodeJS.Timeout;
 
-
-export default function init(address: string): Promise<w3cwebsocket> {
+function create(address: string): Promise<w3cwebsocket> {
 
     const reconnectInterval = 500;
     const Attempts = 10;
     let reconnectAttempts = 0;
-    let timeoutId: Timeout;
+    let timeoutId: NodeJS.Timeout;
 
     return new Promise(function (resolve, reject) {
         let wsConnection: w3cwebsocket;
@@ -38,6 +36,16 @@ export default function init(address: string): Promise<w3cwebsocket> {
         connect();
 
     });
+}
+
+export default async function connect(address:string, signal: AbortSignal): Promise<w3cwebsocket> {
+
+    const webSocket = await create(address);
+    if (signal.aborted) {
+        webSocket.close();
+    }
+
+    return webSocket;
 }
 
 

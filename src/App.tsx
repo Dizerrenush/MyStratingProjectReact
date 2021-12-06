@@ -4,7 +4,7 @@ import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
 import {connect} from 'react-redux'
 import store from './redux/store'
 import "./assets/sass/style";
-import init from "./webSocket/init";
+import connectWs from "./webSocket/index";
 import {createEventAction, setFeedbackList} from "./redux/actions";
 import {IActions} from "./redux/types/types";
 import {IFeedbacks} from "./pages/types/types";
@@ -39,7 +39,11 @@ const App = (): JSX.Element => {
             })
     }, []);
 
-    init(WS_SERVER).then(
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    //TODO ping-pong socket
+    connectWs(WS_SERVER, signal).then(
         (wsConnect) => {
             wsConnect.onmessage = (message) => {
                 const data = message.data

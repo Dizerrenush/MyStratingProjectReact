@@ -1,9 +1,7 @@
 
 import React from "react";
-import {IForm} from "./types/types";
-import Textarea from "../utils/Textarea/Textarea";
+import type {IForm} from "./types/types";
 import Input from "../utils/Input/Input";
-import {INPUT_TYPE} from "./types/const";
 import './Form.scss'
 import {postData} from "../../utils/utils";
 
@@ -55,43 +53,30 @@ const MyForm = (props: IForm.IData): JSX.Element => {
 
     return (
         <form className="form-group" onSubmit={sendForm}>
-            {inputs.map(inputData => {
-                const {
-                    type,
-                    data: {
-                        label,
-                        options,
-                        name,
-                        value,
-                    },
-                } = inputData;
-                switch (type) {
-                    case INPUT_TYPE.TEXT: {
-                        return (
-                            <Input
-                                label={label}
-                                name={name}
-                                value={value}
-                                options={options}
-                                key={name}
-                                onChange={handleChange}
-                            />
-                        );
-                    }
-                    case INPUT_TYPE.TEXTAREA: {
-                        return (
-                            <Textarea
-                                label={label}
-                                name={name}
-                                value={value}
-                                options={options}
-                                key={name}
-                                onChange={handleChange}
-                            />
-                        );
-                    }
-                }
-            })}
+            {
+                inputs.map(inputData => {
+                    const {
+                        type,
+                        data: {
+                            label,
+                            options,
+                            name,
+                            value,
+                        },
+                    } = inputData;
+                    return (
+                        <Input
+                            label={label}
+                            name={name}
+                            value={value}
+                            type={type}
+                            options={options}
+                            key={name}
+                            onChange={handleChange}
+                        />
+                    )
+                })
+            }
             <button className="btn btn-primary" type="submit">
                 {props.button_text}
             </button>

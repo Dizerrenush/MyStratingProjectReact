@@ -11,7 +11,7 @@ export namespace IForm {
     }
 
     export interface IInput {
-        data: IInputs.IComponentInput | IInputs.IComponentTextarea;
+        data: IInputs.Component | IInputs.IComponentTextarea;
         type: INPUT_TYPE;
     }
 

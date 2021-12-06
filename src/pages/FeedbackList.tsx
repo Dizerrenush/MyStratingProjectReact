@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
-import {IActions, IState} from "../redux/types/types";
-import {IFeedbacks} from "./types/types";
+import type {IActions, IState} from "../redux/types/types";
+import type {IFeedbacks} from "./types/types";
 import store from "../redux/store";
 import {createEventAction} from "../redux/actions";
 import {WS_EVENT_ID} from "../redux/types/const";
