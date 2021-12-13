@@ -1,15 +1,19 @@
+import { once } from "cluster";
 import {w3cwebsocket} from "websocket";
 
-function create(address: string): Promise<w3cwebsocket> {
+export function create(address: string,signal: AbortSignal): Promise<w3cwebsocket> {
 
     const reconnectInterval = 500;
     const Attempts = 10;
     let reconnectAttempts = 0;
-    let timeoutId: NodeJS.Timeout;
+    let timeoutId: ReturnType<typeof setTimeout>;
 
     return new Promise(function (resolve, reject) {
         let wsConnection: w3cwebsocket;
         const connect = function () {
+            /*if(signal.aborted){
+                reject('ConnectionAborted');
+            }*/
             reconnectAttempts++;
             wsConnection = new w3cwebsocket(address);
 
@@ -40,13 +44,15 @@ function create(address: string): Promise<w3cwebsocket> {
 
 export default async function connect(address:string, signal: AbortSignal): Promise<w3cwebsocket> {
 
-    const webSocket = await create(address);
-    if (signal.aborted) {
+    const webSocket = await create(address,signal);
+
+    signal.onabort = function() {
         webSocket.close();
-    }
+    };
 
     return webSocket;
 }
+
 
 
 
